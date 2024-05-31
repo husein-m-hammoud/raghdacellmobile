@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "764479888397",
+    "project_id": "r-sell-c0d98",
+    "storage_bucket": "r-sell-c0d98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764479888397:android:0126569fb7d95560c48944",
+        "android_client_info": {
+          "package_name": "com.example.raghadcell"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN2LkzHAk-NBrzwd8nTRP3bLxW8v7HVg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764479888397:android:d68b866111488b57c48944",
+        "android_client_info": {
+          "package_name": "com.icr.raghadcell"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN2LkzHAk-NBrzwd8nTRP3bLxW8v7HVg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

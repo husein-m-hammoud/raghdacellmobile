@@ -1,0 +1,96 @@
+name: raghadcell
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+dependencies:
+  load_switch: ^2.1.0
+  # auto_size_text: ^3.0.0
+  bloc: ^8.1.4
+  cached_network_image: ^3.3.1
+  carousel_slider: ^4.2.1
+  connectivity: ^3.0.6
+  cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
+  dio: ^5.3.1
+  dio_cache_interceptor: ^3.3.0
+  dropdown_button2: ^2.3.8
+  firebase_core: ^2.24.2
+  firebase_messaging: ^14.7.9
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.1
+  flutter_local_notifications: ^16.3.2
+  flutter_localizations:
+    sdk: flutter
+  flutter_switch: ^0.3.2
+  flutter_verification_code: ^1.1.6
+  image_picker: ^1.0.7
+  loading_indicator: ^3.1.0
+  meta: ^1.9.1
+  page_transition: ^2.0.4
+  phone_form_field: ^8.1.1
+  photo_view: ^0.14.0
+  pretty_dio_logger: ^1.1.1
+  pull_to_refresh: ^2.0.0
+  restart_app: ^1.2.1
+  shared_preferences: ^2.0.15
+  shimmer: ^3.0.0
+  simple_gradient_text: 1.2.4
+  sizer: ^2.0.15
+  smooth_page_indicator: ^1.1.0
+  syncfusion_flutter_datepicker: ^24.0.9
+  url_launcher: ^6.2.6
+  flutter_launcher_icons: ^0.13.1
+  flutter_svg: ^2.0.10+1
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/mainlogo.png"
+  min_sdk_android: 21
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/mainlogo.png
+    - assets/images/
+    - assets/icons/
+    - assets/translations/en.json
+    - assets/translations/ar.json
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # icr:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
