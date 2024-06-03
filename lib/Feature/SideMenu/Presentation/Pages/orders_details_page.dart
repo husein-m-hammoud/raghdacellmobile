@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:raghadcell/Apis/Urls.dart';
 import 'package:raghadcell/App/app_localizations.dart';
 import 'package:raghadcell/Core/Constants/app_assets.dart';
@@ -10,6 +13,7 @@ import 'package:raghadcell/Core/function/functions.dart';
 import 'package:raghadcell/Feature/SideMenu/Presentation/Widgets/requests_details_widget.dart';
 import 'package:raghadcell/Feature/SideMenu/Presentation/models/orders_model.dart';
 import 'package:sizer/sizer.dart';
+
 class RequestsDetailsPage extends StatelessWidget {
   final Orders order;
   const RequestsDetailsPage({required this.order, super.key});
@@ -84,9 +88,13 @@ class RequestsDetailsPage extends StatelessWidget {
                                           detail: order.acceptNote,
                                         )
                                       : const SizedBox(),
+                              if (order.itemCodes != null)
+                                ..._buildItemCodesList(order.itemCodes!),
                               RequestsDetailsWidget(
                                 title: "Order Status",
-                                detail: order.status,
+                                detail: order.status == 'FAILED'
+                                    ? 'WATING '
+                                    : order.status,
                               ),
                               order.playerName != null
                                   ? RequestsDetailsWidget(
@@ -135,6 +143,48 @@ class RequestsDetailsPage extends StatelessWidget {
               ),
             ],
           ))),
+    );
+  }
+}
+
+List<Widget> _buildItemCodesList(String itemCodes) {
+  List<dynamic> codes = jsonDecode(itemCodes);
+  return [
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        'Code',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    ),
+    ...codes.map((code) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CopyableText(text: code['code']),
+        )),
+  ];
+}
+
+class CopyableText extends StatelessWidget {
+  final String text;
+
+  CopyableText({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Clipboard.setData(ClipboardData(text: text));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Copied to clipboard')),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 16.0, color: Colors.blue),
+        ),
+      ),
     );
   }
 }

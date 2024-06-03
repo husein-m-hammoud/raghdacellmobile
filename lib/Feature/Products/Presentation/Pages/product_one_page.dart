@@ -12,11 +12,14 @@ import 'package:raghadcell/Feature/Products/Presentation/Pages/product_one_input
 import 'package:sizer/sizer.dart';
 
 import '../../../Home/models/products_model.dart';
+import '../Pages/product_api_page.dart';
+
 
 class ProductOnePage extends StatelessWidget {
-  ProductOnePage({super.key, required this.product});
+  ProductOnePage({super.key, required this.product, this.number});
 
   late final Product product;
+    final num? number;
 
   final GlobalKey<FormState> formKey = GlobalKey();
 
@@ -84,6 +87,20 @@ class ProductOnePage extends StatelessWidget {
                                     image: state.productsPackagesModel
                                         .data![index].image!,
                                     onPressed: () {
+                                           if (6 == number) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductApiPage(
+                                              product: product,
+                                              package: state
+                                                  .productsPackagesModel
+                                                  .data![index],
+                                              // package: null,
+                                            ),
+                                          ));
+                                    } else {
                                       navigatorKey.currentState!.push(
                                         PageTransition(
                                             child: OrdersInput(
@@ -101,6 +118,7 @@ class ProductOnePage extends StatelessWidget {
                                             duration: const Duration(
                                                 milliseconds: 400)),
                                       );
+                                    }
                                     },
                                   );
                                 },

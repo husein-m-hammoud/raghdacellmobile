@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
-
+import 'dart:convert';
 import '../../../Core/global_variables.dart';
+
 
 class ProductsPackagesModel {
   List<Package>? data;
@@ -28,10 +29,45 @@ class ProductsPackagesModel {
   }
 }
 
+class Requirement {
+  String name;
+  String label;
+
+  Requirement({
+    required this.name,
+    required this.label,
+  });
+
+  factory Requirement.fromJson(Map<String, dynamic> json) {
+    return Requirement(
+      name: json['name'] as String,
+      label: json['label'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'label': label,
+    };
+  }
+}
+
 class Package {
   var id;
   String? name;
   var isAvailable;
+  var forceUnavailable;
+  var automationReference;
+  var productReference;
+  //List<dynamic>?
+  // List<dynamic>? requirements;
+  var requirements; //
+  var maximumQut;
+  var minimumQut;
+  var thPartyAs7abApi;
+  var userPercentage;
+  var companyPercentage;
   var userPrice;
   var companyPrice;
   var thPartyApiId;
@@ -44,6 +80,16 @@ class Package {
       {this.id,
       this.name,
       this.isAvailable,
+      this.forceUnavailable,
+      this.automationReference,
+      this.productReference,
+      this.requirements,
+      // required this.requirements,
+      this.maximumQut,
+      this.minimumQut,
+      this.thPartyAs7abApi,
+      this.userPercentage,
+      this.companyPercentage,
       this.userPrice,
       this.companyPrice,
       this.thPartyApiId,
@@ -58,6 +104,30 @@ class Package {
     name = json['name'];
     // print(name);
     isAvailable = json['is_available'];
+    forceUnavailable = json['force_unavailable'];
+    automationReference = json['automation_reference'];
+    productReference = json['product_reference'];
+
+    requirements = json['requirements'];
+    // Handling requirements field
+    // print('eee');
+    // print(json['requirements']);
+    // if (json['requirements'] != null) {
+    //   requirements = [];
+    //   json['requirements'] =
+    //   if (json['requirements'] is List) {
+    //     (json['requirements'] as List).forEach((req) {
+    //       requirements!.add(Requirement.fromJson(req));
+    //     });
+    //   } else if (json['requirements'] is Map) {
+    //     requirements!.add(Requirement.fromJson(json['requirements']));
+    //   }
+    // }
+    maximumQut = json['maximum_qut'] ?? 0;
+    minimumQut = json['minimum_qut'] ?? 0;
+    thPartyAs7abApi = json['th_party_as7ab_api'];
+    userPercentage = json['user_percentage'] ?? 0;
+    companyPercentage = json['company_percentage'] ?? 0;
     // print(isAvailable);
     userPrice = type == "USER"? json['user_price']:json['company_price'];
     // print(userPrice);
@@ -86,6 +156,7 @@ class Package {
     data['name'] = name;
     // print(name);
     data['is_available'] = isAvailable;
+      data['force_unavailable'] = forceUnavailable;
     // print(isAvailable);
     data['user_price'] = userPrice;
     // print(userPrice);
@@ -100,6 +171,11 @@ class Package {
     data['require_player_number'] = requirePlayerNumber;
     // print(requirePlayerNumber);
     data['is_tiktok'] = isTiktok;
+    if (requirements != null) {
+      data['requirements'] = requirements!.map((req) => req.toJson()).toList();
+    }
+    //data['requirements'] = requirements;
+
     // print(isTiktok);
     return data;
   }

@@ -46,8 +46,10 @@ class ProductsPackagesErrorState extends HomeState {
 class PlayerNumberState extends HomeState {
   final bool isLoading;
   var message;
+  String? msg;
   final bool? hasName;
-  PlayerNumberState({this.message = "", this.isLoading = false, this.hasName});
+  PlayerNumberState(
+      {this.message = "", this.msg = "", this.isLoading = false, this.hasName});
 }
 
 class OrderErrorState extends HomeState {

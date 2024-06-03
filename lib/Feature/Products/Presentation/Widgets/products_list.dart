@@ -12,6 +12,8 @@ import '../Pages/product_four_page.dart';
 import '../Pages/product_one_page.dart';
 import '../Pages/product_three_page.dart';
 import '../Pages/product_two_page.dart';
+import '../Pages/product_api_page.dart';
+
 
 
 Widget productsList({required ProductsModel productsModel}){
@@ -55,6 +57,28 @@ Widget productsList({required ProductsModel productsModel}){
                         .data!.products![index],
                   ),)
               );
+            }
+              if (productsModel.data!.products![index].number == 6 &&
+                productsModel.data!.products![index].istoken != 1) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductOnePage(
+                      product: productsModel.data!.products![index],
+                      number: 6,
+                    ),
+                  ));
+            }
+            if (productsModel.data!.products![index].number == 6 &&
+                productsModel.data!.products![index].istoken == 1) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductApiPage(
+                        product: productsModel.data!.products![index]
+                        // package: null,
+                        ),
+                  ));
             }
             if (productsModel.data!
                 .products![index].number ==

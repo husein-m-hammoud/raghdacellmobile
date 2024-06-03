@@ -113,6 +113,7 @@ class Orders {
   var contactNumber;
   User? user;
   var productImage;
+  var itemCodes;
   var productName;
   var packageName;
   var pricePerItem;
@@ -136,6 +137,7 @@ class Orders {
       this.contactNumber,
       this.user,
       this.productImage,
+      this.itemCodes,
       this.productName,
       this.packageName,
       this.pricePerItem,
@@ -159,6 +161,7 @@ class Orders {
     contactNumber = json['contact_number'];
     user = json['user'] != null ? User.fromJson(json['user']) : null;
     productImage = json['product_image'];
+    itemCodes = json['item_codes'];
     productName = json['product_name'];
     packageName = json['package_name'];
     pricePerItem = json['price_per_item'];
@@ -186,6 +189,8 @@ class Orders {
       data['user'] = user!.toJson();
     }
     data['product_image'] = productImage;
+    data['item_codes'] = itemCodes;
+
     data['product_name'] = productName;
     data['package_name'] = packageName;
     data['price_per_item'] = pricePerItem;

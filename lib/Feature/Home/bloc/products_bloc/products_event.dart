@@ -6,11 +6,11 @@ class ProductsEvent {}
 class GetSliderImageEvent extends ProductsEvent {}
 
 class GetProductsEvent extends ProductsEvent {
-   final String params ;
+  final String params;
   GetProductsEvent({this.params = ''});
 }
 
-class ProductsSearchEvent extends ProductsEvent{
+class ProductsSearchEvent extends ProductsEvent {
   final String search;
   ProductsSearchEvent(this.search);
 }
@@ -26,11 +26,14 @@ class GetProductsPackagesEvent extends ProductsEvent {
 }
 
 class PlayerNumberEvent extends ProductsEvent {
-  final int productPartyApi;
+  final String productPartyApi;
   final int playerNumber;
+  final bool? isAs7ab;
 
   PlayerNumberEvent(
-      {required this.playerNumber, required this.productPartyApi});
+      {required this.playerNumber,
+      required this.productPartyApi,
+      this.isAs7ab = false});
 }
 
 class OrderOneEvent extends ProductsEvent {
@@ -96,6 +99,12 @@ class OrderFiveEvent extends ProductsEvent {
   });
 }
 
+class OrderSixEvent extends ProductsEvent {
+  List<FormData> jsonData;
+
+  OrderSixEvent({required this.jsonData});
+}
+
 class OrderFourEvent extends ProductsEvent {
   final String productId;
   final String quantity;
@@ -107,4 +116,18 @@ class OrderFourEvent extends ProductsEvent {
     required this.serviceType,
     required this.quantity,
   });
+}
+
+class FormData {
+  String name;
+  String value;
+
+  FormData({required this.name, required this.value});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'value': value,
+    };
+  }
 }

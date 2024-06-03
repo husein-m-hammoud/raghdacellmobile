@@ -1,5 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
@@ -16,6 +18,19 @@ import 'package:raghadcell/Feature/Home/models/slider_image_model.dart';
 part 'products_event.dart';
 part 'products_state.dart';
 
+// Define your event
+Map<String, String> convertListToMap(List<Map<String, dynamic>> inputList) {
+  Map<String, String> resultMap = {};
+
+  for (var item in inputList) {
+    String name = item['name'];
+    String value = item['value'].toString();
+    resultMap[name] = value;
+  }
+
+  return resultMap;
+}
+
 class ProductsBloc extends Bloc<ProductsEvent, HomeState> {
   int page = 1;
   ProductsModel? productsModel;
@@ -23,7 +38,6 @@ class ProductsBloc extends Bloc<ProductsEvent, HomeState> {
   RefreshController refreshController = RefreshController();
   int? productAdditionalServicesIndexSelected = 0;
   ProductsBloc() : super(ProductsLoadingState()) {
-
     on<GetSliderImageEvent>((event, emit) async {
       emit(SliderImageLoadingState());
       try {
@@ -33,7 +47,6 @@ class ProductsBloc extends Bloc<ProductsEvent, HomeState> {
 
         emit(GetSliderImageState(sliderImageModel: sliderImageModel));
       } catch (error) {
-
         if (error is DioException) {
           emit(SliderImageErrorState(message: exceptionsHandle(error: error)));
         } else {
@@ -45,16 +58,30 @@ class ProductsBloc extends Bloc<ProductsEvent, HomeState> {
     on<PlayerNumberEvent>((event, emit) async {
       emit(PlayerNumberState(isLoading: true));
       try {
-        await Network.postData(
-            url: "${Urls.baseUrl}/th-p-apis/${event.productPartyApi}",
-            data: {"number": event.playerNumber}).then((response) {
-          // print(response.data['data']['msg']);
-          hasName = response.data['error'] == null;
-          emit(PlayerNumberState(
-              message: response.data['error'] == null
-                  ? response.data['data']['username']
-                  : response.data['msg']));
-        });
+        if (event.isAs7ab == true) {
+          await Network.postData(
+                  url:
+                      "${Urls.baseUrl}/automated/get/player/name/${event.playerNumber}/${event.productPartyApi.toLowerCase()}")
+              .then((response) {
+            print(response.data['data']);
+            hasName = response.data['data']['result']! != 'error';
+            emit(PlayerNumberState(
+                message: response.data['data']['result']! != 'error'
+                    ? response.data['data']['playername']
+                    : response.data['data']['error_code']!));
+          });
+        } else {
+          await Network.postData(
+              url: "${Urls.baseUrl}/th-p-apis/${event.productPartyApi}",
+              data: {"number": event.playerNumber}).then((response) {
+            // print(response.data['data']['msg']);
+            hasName = response.data['error'] == null;
+            emit(PlayerNumberState(
+                message: response.data['error'] == null
+                    ? response.data['data']['username']
+                    : response.data['msg']! || response.data['message']!));
+          });
+        }
 
         emit(PlayerNumberState(isLoading: false));
       } catch (error) {
@@ -106,6 +133,30 @@ class ProductsBloc extends Bloc<ProductsEvent, HomeState> {
             "quantity": event.quantity,
             "product_id": event.productId,
           },
+        );
+
+        emit(OrderSuccessfulState());
+      } on FormatException {
+        emit(OrderErrorState(message: "Please Enter the correct number"));
+      } catch (error) {
+        if (error is DioException) {
+          emit(OrderErrorState(message: exceptionsHandle(error: error)));
+        } else {
+          emit(OrderErrorState(message: error.toString()));
+        }
+      }
+    });
+    on<OrderSixEvent>((event, emit) async {
+      emit(OrderLoadingState());
+      try {
+        late List<Map<String, dynamic>> jsonData =
+            event.jsonData.map((data) => data.toJson()).toList();
+        // ignore: unused_local_variable
+        Map<String, String> resultMap = convertListToMap(jsonData);
+        print(resultMap);
+        await Network.postData(
+          url: Urls.orderSix,
+          data: jsonEncode(resultMap),
         );
 
         emit(OrderSuccessfulState());
@@ -179,6 +230,8 @@ class ProductsBloc extends Bloc<ProductsEvent, HomeState> {
 
         emit(GetProductsPackagesState(
             productsPackagesModel: productsPackagesModel));
+        print(response.data);
+        print('hussein2');
       } catch (error) {
         if (error is DioException) {
           emit(ProductsPackagesErrorState(
@@ -213,14 +266,14 @@ class ProductsBloc extends Bloc<ProductsEvent, HomeState> {
         emit(GetProductsState(productsModel: productsModel!));
         page++;
       } catch (error) {
-          print("error is $error");
+        print("error is $error");
         if (page == 1) {
           if (error is DioException) {
             emit(ProductsErrorState(message: exceptionsHandle(error: error)));
           } else {
             ProductsErrorState(message: error.toString());
           }
-        }else{
+        } else {
           refreshController.loadFailed();
         }
       }
@@ -260,29 +313,23 @@ class ProductsBloc extends Bloc<ProductsEvent, HomeState> {
       }
     });
 
-
     on<ProductsSearchEvent>((event, emit) async {
       emit(ProductsLoadingState());
       try {
         final response = await Network.getData(
             url:
-            "${Urls.baseUrl}/products?search=${event.search}&paginate=1&local=${AppSharedPreferences.getArLang}");
+                "${Urls.baseUrl}/products?search=${event.search}&paginate=1&local=${AppSharedPreferences.getArLang}");
 
         productsModel = ProductsModel.fromJson(response.data);
         emit(GetProductsState(productsModel: productsModel!));
       } catch (error) {
         if (error is DioException) {
-          emit(ProductsErrorState(
-              message: exceptionsHandle(error: error)));
+          emit(ProductsErrorState(message: exceptionsHandle(error: error)));
         } else {
           ProductsErrorState(message: error.toString());
         }
       }
     });
-
   }
-  void checkPlayerNumber(){
-
-  }
-
+  void checkPlayerNumber() {}
 }

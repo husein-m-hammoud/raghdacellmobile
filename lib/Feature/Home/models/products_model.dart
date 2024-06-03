@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import '../../../Core/global_variables.dart';
-
 class ProductsModel {
   Data? data;
   int? code;
@@ -9,7 +7,8 @@ class ProductsModel {
   ProductsModel({this.data, this.code});
 
   ProductsModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] is Map ? Data.fromJson(json['data']) : Data.fromJson(json);
+    data =
+        json['data'] is Map ? Data.fromJson(json['data']) : Data.fromJson(json);
     code = json['code'];
   }
 
@@ -57,10 +56,9 @@ class Data {
     currentPage = json['current_page'];
     if (json['data'] != null) {
       products = <Product>[];
-        json['data'].forEach((v) {
-          products!.add(Product.fromJson(v));
-        });
-
+      json['data'].forEach((v) {
+        products!.add(Product.fromJson(v));
+      });
     }
     firstPageUrl = json['first_page_url'];
     from = json['from'];
@@ -107,6 +105,7 @@ class Product {
   var id;
   var pkey;
   var name;
+  var istoken;
   var note;
   var number;
   var minimumQut;
@@ -126,6 +125,7 @@ class Product {
       {this.id,
       this.pkey,
       this.name,
+      this.istoken,
       this.note,
       this.number,
       this.minimumQut,
@@ -142,28 +142,28 @@ class Product {
       this.currency});
 
   Product.fromJson(Map<String, dynamic> json) {
-
     id = json['id'];
     pkey = json['pkey'];
     name = json['name'];
+    istoken = json['istoken'];
     note = json['note'];
     number = json['number'];
-    minimumQut = json['minimum_qut'];
+    minimumQut = json['minimum_qut'] ?? 0;
     minimumQutNote = json['minimum_qut_note'];
     available = json['available'];
-    userPrice = type == "USER"? json['user_price']:json['company_price'];
+    userPrice = json['user_price'];
     secUserPrice = json['sec_user_price'];
     secCompanyPrice = json['sec_company_price'];
     companyPrice = json['company_price'];
     thPartyApiId = json['th_party_api_id'];
     requirePlayerNumber = json['require_player_number'];
     image = json['image'];
-      if (json['product_additional_services'] != null) {
-        productAdditionalServices = <ProductAdditionalServices>[];
-        json['product_additional_services'].forEach((v) {
-          productAdditionalServices!.add(ProductAdditionalServices.fromJson(v));
-        });
-      }
+    if (json['product_additional_services'] != null) {
+      productAdditionalServices = <ProductAdditionalServices>[];
+      json['product_additional_services'].forEach((v) {
+        productAdditionalServices!.add(ProductAdditionalServices.fromJson(v));
+      });
+    }
 
     currency = json['currency'];
   }
@@ -173,6 +173,7 @@ class Product {
     data['id'] = id;
     data['pkey'] = pkey;
     data['name'] = name;
+    data['istoken'] = istoken;
     data['note'] = note;
     data['number'] = number;
     data['minimum_qut'] = minimumQut;

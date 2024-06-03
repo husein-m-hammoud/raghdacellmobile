@@ -173,7 +173,14 @@ class _RequestsPageState extends State<RequestsPage> {
                                                       .orders![index].status ==
                                                   "CANCELED"
                                               ? Colors.red
-                                              : Colors.black,
+                                               : state
+                                                          .ordersModerl
+                                                          .data!
+                                                          .orders![index]
+                                                          .status ==
+                                                      "FAILED"
+                                                  ? Colors.blue
+                                                  : Colors.black,
                                 );
                               },
                             )
