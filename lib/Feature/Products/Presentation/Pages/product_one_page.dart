@@ -80,6 +80,9 @@ class ProductOnePage extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return CardDesignWidget(
                                     imageHeight: 10.h,
+                                   
+                                    isAvilable: state.productsPackagesModel
+                                        .data![index].isAvailable!,
                                     subTitle: state.productsPackagesModel
                                         .data![index].userPrice!,
                                     title: state

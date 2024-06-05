@@ -59,7 +59,8 @@ class _ProductApiPageState extends State<ProductApiPage> {
     super.initState();
     if (widget.package != null) {
       selectedPackage = widget.package;
-      if (selectedPackage.requirements != null) {
+      if (selectedPackage.requirements != null  && selectedPackage.requirements is String) {
+       
         selectedPackage.requirements =
             json.decode(selectedPackage.requirements);
       }
@@ -180,7 +181,7 @@ class _ProductApiPageState extends State<ProductApiPage> {
         print('hussein loading');
       return Scaffold(
         appBar: AppBar(
-          title: Text('Product API Page'),
+          title: null,
         ),
         body: Center(
           child: CircularProgressIndicator(),
@@ -265,7 +266,7 @@ class _ProductApiPageState extends State<ProductApiPage> {
                                           }
 
                                           formData.add(
-                                              FormData(name: 'qyt', value: p0));
+                                              FormData(name: 'qty', value: p0));
                                         }
                                       },
                                       validator: (p0) {

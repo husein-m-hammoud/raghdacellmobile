@@ -3,10 +3,10 @@
 import 'package:raghadcell/Core/Util/SharedPreferences/SharedPreferencesHelper.dart';
 
 class Urls {
-  // static String baseUrl = "https://backend.raghdacell.com/api";
-  // static String storage = 'https://backend.raghdacell.com/storage/';
-   static String baseUrl = "https://dev-backend.raghdacell.com/api";
-  static String storage = 'https://dev-backend.raghdacell.com/storage/';
+  static String baseUrl = "https://backend.raghdacell.com/api";
+  static String storage = 'https://backend.raghdacell.com/storage/';
+  //  static String baseUrl = "https://dev-backend.raghdacell.com/api";
+  // static String storage = 'https://dev-backend.raghdacell.com/storage/';
   static String loginCheck =
       '$baseUrl/login?check=1&local=${AppSharedPreferences.getArLang}';
   static String signUpCheck =
