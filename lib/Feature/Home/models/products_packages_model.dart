@@ -130,11 +130,14 @@ class Package {
     companyPercentage = json['company_percentage'] ?? 0;
     // print(isAvailable);
     userPrice = type == "USER"? json['user_price']:json['company_price'];
-    userPercentage = type == "USER"? json['user_percentage']:json['company_percentage'] ?? 0;
+  //   userPercentage = type == "USER"? json['user_percentage']:json['company_percentage'] ?? 0;
     if (userPercentage > 0) {
       userPrice = userPrice *(1 + userPercentage/100);
+      // print({userPrice});
+      //  userPrice =  double.parse(userPrice.toStringAsFixed(2));
+        // print({userPrice});
     }
-   userPrice =  double.parse(userPrice.toStringAsFixed(2));
+  
     // print(userPrice);
 
     companyPrice = json['company_price'];
