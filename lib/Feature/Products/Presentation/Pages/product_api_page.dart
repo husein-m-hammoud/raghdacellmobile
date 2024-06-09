@@ -249,17 +249,7 @@ class _ProductApiPageState extends State<ProductApiPage> {
                                                 .toString();
                                           }
 
-                                          if (selectedPackage.userPercentage >
-                                              0) {
-                                            totalController
-                                                .text = formatNumber((int.parse(
-                                                        p0) *
-                                                    selectedPackage.userPrice) *
-                                                (1 +
-                                                    (selectedPackage
-                                                            .userPercentage /
-                                                        100)));
-                                          } else {
+                                        
                                             totalController.text = formatNumber(
                                                 (int.parse(p0) *
                                                     selectedPackage.userPrice));
@@ -267,7 +257,7 @@ class _ProductApiPageState extends State<ProductApiPage> {
 
                                           formData.add(
                                               FormData(name: 'qty', value: p0));
-                                        }
+                                        
                                       },
                                       validator: (p0) {
                                         if (double.parse(p0!) <
