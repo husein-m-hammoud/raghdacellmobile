@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
+import '../../../Core/global_variables.dart';
 
 class ProductsModel {
   Data? data;
@@ -151,7 +152,9 @@ class Product {
     minimumQut = json['minimum_qut'] ?? 0;
     minimumQutNote = json['minimum_qut_note'];
     available = json['available'];
-    userPrice = json['user_price'];
+   // userPrice = json['user_price'];
+    userPrice = type == "USER" ? json['user_price']:json['company_price'];
+
     secUserPrice = json['sec_user_price'];
     secCompanyPrice = json['sec_company_price'];
     companyPrice = json['company_price'];
