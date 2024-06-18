@@ -178,7 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 onChanged: (phoneNumber) => print(
                                     "+${phoneController.value!.countryCode}${phoneController.value!.nsn}"),
                                 enabled: true,
-                                isCountrySelectionEnabled: true,
+                                isCountrySelectionEnabled: false,
                                 showDialCode: true,
                                 showIsoCodeInInput: true,
                                 showFlagInInput: true,

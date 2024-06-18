@@ -23,6 +23,7 @@ import 'package:raghadcell/Feature/SideMenu/blocs/profile_bloc/profile_bloc.dart
 import 'package:raghadcell/Feature/Wallet/Presentation/Pages/wallet_page.dart';
 import 'package:raghadcell/Feature/notification/presentation/pages/view_notification_page.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -280,7 +281,21 @@ class DrawerWidget extends StatelessWidget {
                               const AuthButtonWidget(),
                               SizedBox(
                                 height: 2.h,
-                              )
+                              ),
+                              
+                                  TextButton(
+                              onPressed: () {
+                                launch(
+                                    'https://www.termsfeed.com/live/ecfac09b-0ba6-4b76-9138-854cd911ed11');
+                              },
+                              child: Text(
+                                'Privacy Policy'.tr(context),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                            ),
                             ],
                           ));
                     },

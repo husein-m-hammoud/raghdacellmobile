@@ -157,6 +157,8 @@ class _SignInPageState extends State<SignInPage> {
                                           "${"Enter Your".tr(context)} ${"User Name or Phone".tr(context)}",
                                     )
                                   : PhoneFormField(
+                                    //  initialValue: PhoneNumber.parse('+961'),
+                                    
                                       controller: phoneController,
                                       focusNode: userNameNode,
                                       decoration: InputDecoration(
@@ -183,7 +185,7 @@ class _SignInPageState extends State<SignInPage> {
                                       onChanged: (phoneNumber) => print(
                                           "+${phoneController.value!.countryCode}${phoneController.value!.nsn}"),
                                       enabled: true,
-                                      isCountrySelectionEnabled: true,
+                                      isCountrySelectionEnabled: false,
                                       showDialCode: true,
                                       showIsoCodeInInput: true,
                                       showFlagInInput: true,

@@ -114,7 +114,7 @@ class RequestsDetailsPage extends StatelessWidget {
                                       detail: order.productName,
                                     )
                                   : const SizedBox(),
-                              order.packageName != null
+                              order.packageName != null && order.packageName != order.productName
                                   ? RequestsDetailsWidget(
                                       title: "Packages",
                                       detail: order.packageName,
